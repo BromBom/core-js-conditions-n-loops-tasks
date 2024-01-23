@@ -457,7 +457,9 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arr) {
+function sortByAsc(/* arr */) {
+  throw new Error('Not implemented');
+  /*
   const List = arr;
 
   if (List.length <= 1) {
@@ -481,6 +483,7 @@ function sortByAsc(arr) {
   }
 
   return [...sortByAsc(leftList), pivot, ...sortByAsc(rightList)];
+  */
 }
 
 /**
@@ -500,7 +503,9 @@ function sortByAsc(arr) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(str, iterations) {
+function shuffleChar(/* str, iterations */) {
+  throw new Error('Not implemented');
+  /* 
   if (iterations === 0) return str;
 
   const arrStart = [];
@@ -526,6 +531,7 @@ function shuffleChar(str, iterations) {
   }
 
   return shuffleChar(result, iterations - 1);
+  */
 }
 
 /**
@@ -545,8 +551,78 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const strNum = number.toString();
+  const arrNum = [...strNum];
+  let ind;
+
+  for (ind = arrNum.length - 1; ind >= 0; ind -= 1) {
+    if (arrNum[ind] > arrNum[ind - 1]) {
+      break;
+    }
+  }
+
+  if (ind === 1 && arrNum[ind] <= arrNum[ind - 1]) {
+    return number;
+  }
+
+  const prev = arrNum[ind - 1];
+  let smallest = ind;
+
+  for (let j = ind + 1; j < arrNum.length; j += 1) {
+    if (arrNum[j] > prev && arrNum[j] < arrNum[smallest]) smallest = j;
+  }
+
+  const temp = arrNum[smallest];
+  arrNum[smallest] = arrNum[ind - 1];
+  arrNum[ind - 1] = temp;
+  let accumNum = 0;
+
+  for (let j = 0; j < ind; j += 1) {
+    accumNum = accumNum * 10 + +arrNum[j];
+  }
+
+  function qsort(array) {
+    const List = array;
+
+    if (List.length <= 1) {
+      return List;
+    }
+
+    const pivot = List[List.length - 1];
+    const leftList = [];
+    const rightList = [];
+    let n = 0;
+    let m = 0;
+
+    for (let i = 0; i <= List.length - 1; i += 1) {
+      if (List[i] < pivot) {
+        leftList[n] = List[i];
+        n += 1;
+      } else {
+        rightList[m] = List[i];
+        m += 1;
+      }
+    }
+
+    return [...sortByAsc(leftList), pivot, ...sortByAsc(rightList)];
+  }
+
+  const arrTail = [];
+  let index = 0;
+
+  for (let j = ind; j < arrNum.length; j += 1) {
+    arrTail[index] = arrNum[j];
+    index += 1;
+  }
+
+  const arrSortedTail = qsort(arrTail);
+
+  for (let j = 0; j < arrSortedTail.length; j += 1) {
+    accumNum = accumNum * 10 + +arrSortedTail[j];
+  }
+
+  return accumNum;
 }
 
 module.exports = {
