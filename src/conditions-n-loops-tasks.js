@@ -592,10 +592,9 @@ function shuffleChar(str, iterations) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
-  /*
-  const strNum = number.toString();
+function getNearestBigger(number) {
+  let strNum = '';
+  strNum += number;
   const arrNum = [...strNum];
   let ind;
 
@@ -635,20 +634,28 @@ function getNearestBigger(/* number */) {
     const pivot = List[List.length - 1];
     const leftList = [];
     const rightList = [];
+    const mid = [];
+    mid[0] = pivot;
     let n = 0;
     let m = 0;
+    let k = 1;
 
-    for (let i = 0; i <= List.length - 1; i += 1) {
+    for (let i = 0; i < List.length - 1; i += 1) {
+      if (List[i] === pivot) {
+        mid[k] = List[i];
+        k += 1;
+      }
       if (List[i] < pivot) {
         leftList[n] = List[i];
         n += 1;
-      } else {
+      }
+      if (List[i] > pivot) {
         rightList[m] = List[i];
         m += 1;
       }
     }
 
-    return [...sortByAsc(leftList), pivot, ...sortByAsc(rightList)];
+    return [...sortByAsc(leftList), ...mid, ...sortByAsc(rightList)];
   }
 
   const arrTail = [];
@@ -666,7 +673,6 @@ function getNearestBigger(/* number */) {
   }
 
   return accumNum;
-  */
 }
 
 module.exports = {
