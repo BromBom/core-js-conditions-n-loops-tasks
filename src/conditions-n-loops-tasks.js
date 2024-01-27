@@ -457,33 +457,43 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
-  /*
-  const List = arr;
-
-  if (List.length <= 1) {
-    return List;
+function sortByAsc(arr) {
+  if (arr.length < 2) {
+    return arr;
   }
 
+  const List = arr;
   const pivot = List[List.length - 1];
   const leftList = [];
   const rightList = [];
+  const mid = [];
+  mid[0] = pivot;
   let n = 0;
   let m = 0;
+  let k = 1;
 
-  for (let i = 0; i <= List.length - 1; i += 1) {
+  for (let i = 0; i < List.length - 1; i += 1) {
+    if (List[i] === pivot) {
+      mid[k] = List[i];
+      k += 1;
+    }
     if (List[i] < pivot) {
       leftList[n] = List[i];
       n += 1;
-    } else {
+    }
+    if (List[i] > pivot) {
       rightList[m] = List[i];
       m += 1;
     }
   }
 
-  return [...sortByAsc(leftList), pivot, ...sortByAsc(rightList)];
-  */
+  const sortedList = [...sortByAsc(leftList), ...mid, ...sortByAsc(rightList)];
+
+  for (let i = 0; i < sortedList.length; i += 1) {
+    List[i] = sortedList[i];
+  }
+
+  return List;
 }
 
 /**
@@ -505,7 +515,7 @@ function sortByAsc(/* arr */) {
  */
 function shuffleChar(/* str, iterations */) {
   throw new Error('Not implemented');
-  /* 
+  /*
   if (iterations === 0) return str;
 
   const arrStart = [];
@@ -551,7 +561,9 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(number) {
+function getNearestBigger(/* number */) {
+  throw new Error('Not implemented');
+  /*
   const strNum = number.toString();
   const arrNum = [...strNum];
   let ind;
@@ -623,6 +635,7 @@ function getNearestBigger(number) {
   }
 
   return accumNum;
+  */
 }
 
 module.exports = {
